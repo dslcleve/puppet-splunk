@@ -84,11 +84,11 @@ class splunk::forwarder (
       before => Package[$package_name],
     }
   }
-  notify { $pkg_source: } ->
+  notify { $package_source: } ->
   package { $package_name:
     ensure          => $package_ensure,
     provider        => $pkg_provider,
-    source          => $pkg_source,
+    source          => $package_source,
     before          => Service[$virtual_service],
     install_options => $install_options,
     tag             => 'splunk_forwarder',
