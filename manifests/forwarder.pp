@@ -84,6 +84,7 @@ class splunk::forwarder (
       before => Package[$package_name],
     }
   }
+  notify { $pkg_source: } ->
   package { $package_name:
     ensure          => $package_ensure,
     provider        => $pkg_provider,
