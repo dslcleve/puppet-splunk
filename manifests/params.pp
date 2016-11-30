@@ -87,7 +87,7 @@ class splunk::params (
   $password_content = ':admin:$6$pIE/xAyP9mvBaewv$4GYFxC0SqonT6/x8qGcZXVCRLUVKODj9drDjdu/JJQ/Iw0Gg.aTkFzCjNAbaK4zcCHbphFz1g1HK18Z2bI92M0::Administrator:admin:changeme@example.com::'
 
 
-  if $::osfamily == 'Windows' {
+  if $::osfamily == 'windows' {
     $forwarder_dir = pick($forwarder_installdir, 'C:/Program Files/SplunkUniversalForwarder')
     $server_dir    = pick($server_installdir, 'C:/Program Files/Splunk')
   } else {
