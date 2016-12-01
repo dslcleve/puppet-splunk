@@ -71,7 +71,7 @@ class splunk::forwarder (
 
   $path_delimiter  = $splunk::params::path_delimiter
   #no need for staging the source if we have yum or apt
-  if $pkg_provider != undef and $pkg_provider != 'yum' and  $pkg_provider != 'apt' {
+#  if $pkg_provider != undef and $pkg_provider != 'yum' and  $pkg_provider != 'apt' {
     include ::staging
 
     $staged_package  = staging_parse($package_source)
@@ -83,7 +83,7 @@ class splunk::forwarder (
       subdir => $staging_subdir,
       before => Package[$package_name],
     }
-  }
+ # }
  # if $kernel == 'Linux' {
  #   $tmp_package_path = "/tmp/${package_name}"
  # } else {
