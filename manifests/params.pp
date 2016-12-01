@@ -75,6 +75,8 @@ class splunk::params (
   $server               = 'splunk',
   $forwarder_installdir = undef,
   $server_installdir    = undef,
+  $svc_account_user     = undef,
+  $svc_account_password = undef,
 ) {
 
   # Based on the small number of inputs above, we can construct sane defaults
@@ -130,6 +132,9 @@ class splunk::params (
       $server_service       = [ 'Splunkd', 'SplunkWeb' ] # UNKNOWN
       $server_confdir       = "${server_dir}/etc"
       $forwarder_install_options = [
+        '/quiet',
+        "LOGON_USERNAME=\"${svc_account_user}\"",
+        "LOGON_PASSWORD=\"${svc_account_password}\"",
         'AGREETOLICENSE=Yes',
         'LAUNCHSPLUNK=0',
         'SERVICESTARTTYPE=auto',
