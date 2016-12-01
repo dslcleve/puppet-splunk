@@ -144,7 +144,7 @@ class splunk::params (
         'WINEVENTLOG_SET_ENABLE=1',
         'ENABLEADMON=1',
         "INSTALLDIR=\"${forwarder_dir}\"",
-        '/quiet',
+        '/qn',
       ]
       $server_install_options = [
         'LAUNCHSPLUNK=1',
