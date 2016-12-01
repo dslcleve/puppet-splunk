@@ -89,12 +89,12 @@ class splunk::forwarder (
     file { "/tmp/${package_name}":
       ensure => file,
       source => $package_source,
+      before => Package["${package_name}"],
     }
     package { $package_name:
       ensure          => $package_ensure,
       provider        => $pkg_provider,
       source          => "/tmp/${package_name}",
-      require         => File["/tmp/${package_name}"],
       before          => Service[$virtual_service],
       install_options => $install_options,
       tag             => 'splunk_forwarder',
@@ -103,12 +103,12 @@ class splunk::forwarder (
     file { "C:/${package_name}":
       ensure => file,
       source => $package_source,
+      before => Package["${package_name}"],
     }
     package { $package_name:
       ensure          => $package_ensure,
       provider        => $pkg_provider,
       source          => "C:/${package_name}",
-      require         => File["C:/${package_name}"],
       before          => Service[$virtual_service],
       install_options => $install_options,
       tag             => 'splunk_forwarder',
