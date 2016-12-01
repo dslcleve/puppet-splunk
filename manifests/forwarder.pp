@@ -86,35 +86,24 @@ class splunk::forwarder (
   #  }
   #}
   if $kernel == 'Linux' {
-    file { "/tmp/${package_name}":
-      ensure => file,
-      source => $package_source,
-      before => Package["${package_name}"],
-    }
-    package { $package_name:
-      ensure          => $package_ensure,
-      provider        => $pkg_provider,
-      source          => "/tmp/${package_name}",
-      before          => Service[$virtual_service],
-      install_options => $install_options,
-      tag             => 'splunk_forwarder',
-    }
+    $tmp_package_path = "/tmp/${package_name}"
   } else {
-    file { "C:/${package_name}":
-      ensure => file,
-      source => $package_source,
-      before => Package["${package_name}"],
-    }
-    package { $package_name:
-      ensure          => $package_ensure,
-      provider        => $pkg_provider,
-      source          => "C:/${package_name}",
-      before          => Service[$virtual_service],
-      install_options => $install_options,
-      tag             => 'splunk_forwarder',
-    }
+    $tmp_package_path = "C:/${package_name}"
   }
-
+  file { "$tmp_package_path":
+    ensure => file,
+    source => $package_source,
+    before => Package["${package_name}"],
+  }
+  package { $package_name:
+    ensure          => $package_ensure,
+    provider        => $pkg_provider,
+    source          => $tmp_package_path,
+    before          => Service[$virtual_service],
+    install_options => $install_options,
+    tag             => 'splunk_forwarder',
+  }
+ 
   # Declare addons
   create_resources('splunk::addon', $addons)
 
