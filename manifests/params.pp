@@ -132,7 +132,6 @@ class splunk::params (
       $server_service       = [ 'Splunkd', 'SplunkWeb' ] # UNKNOWN
       $server_confdir       = "${server_dir}/etc"
       $forwarder_install_options = [
-        '/passive',
         "LOGON_USERNAME=\"${svc_account_user}\"",
         "LOGON_PASSWORD=\"${svc_account_password}\"",
         'AGREETOLICENSE=Yes',
@@ -145,6 +144,7 @@ class splunk::params (
         'WINEVENTLOG_SET_ENABLE=1',
         'ENABLEADMON=1',
         "INSTALLDIR=\"${forwarder_dir}\"",
+        '/quiet',
       ]
       $server_install_options = [
         'LAUNCHSPLUNK=1',
